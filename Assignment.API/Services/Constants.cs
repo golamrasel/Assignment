@@ -11,7 +11,7 @@ namespace Services
         public static readonly string UserCreation = "User created Successfully.";
         public static readonly string ServerError = "Something went wrong, please contact your administrator";
         public static readonly string SuccessfulLogin = "Login successful";
-        public static readonly string SuccessfulRegister = "{0} Register successfully";
+        public static readonly string SuccessfulRegister = " Register successfully";
         public static readonly string FailedLogin = "Username or password is invalid";
         public static readonly string AddSuccess = "Added successfully";
         public static readonly string UpdateSuccess = "Updated successfully";

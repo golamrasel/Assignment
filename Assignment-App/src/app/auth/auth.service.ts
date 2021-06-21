@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
-import { User } from '../model/User';
+import { WebService } from '../services/web.service';
+import { UrlService } from '../services/url.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
-  email: string =  '123';
-  password: string =  '123';
 
   get isLoggedIn() {
     return this.loggedIn.asObservable();
@@ -17,17 +16,19 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private toastr : ToastrService
+    private web: WebService
   ) {}
 
-  login(model: User) {
-    if (this.isAuthenticated(model)) {
+  routeDashboard() {
       this.loggedIn.next(true);
       this.router.navigate(['/']);
-    }
-    else{
-      this.toastr.error("Email or Password incorrect!!")
-    }
+  }
+
+  signinUser(data:any) {
+    return this.web.post(UrlService.signIn, data)
+      .pipe(map(result => {
+        return result;
+      }));
   }
 
   logout() {
@@ -35,10 +36,4 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  isAuthenticated(model: User): boolean{
-    if (this.email == model.email && this.password == model.password ) 
-        return true;
-    else   
-        return false;
-  }
 }

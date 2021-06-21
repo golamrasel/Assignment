@@ -25,29 +25,29 @@ namespace Services
             _jwtConfig = optionsMonitor.CurrentValue;
         }
 
-        public async Task<ApiResponse> LoginUser(LoginDTO user)
+        public async Task<string> LoginUser(LoginDTO user)
         {
             var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
             if (existingUser == null)
-                return new ApiResponse { Message = Constants.NotFound };
+                throw new Exception(Constants.FailedLogin);
 
             var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
 
             if (!isCorrect)
-                return new ApiResponse { Message = Constants.FailedLogin };
+                throw new Exception(Constants.FailedLogin);
 
             var jwtToken = GenerateJwtToken(existingUser);
 
-            return new ApiResponse { Message = "", Result = jwtToken, StatusCode = (int)HttpStatusCode.OK };
+            return  jwtToken;
         }
 
-        public async Task<ApiResponse> Register(RegistrationDTO model)
+        public async Task<string> Register(RegistrationDTO model)
         {
             var existingUser = await _userManager.FindByEmailAsync(model.Email);
 
             if (existingUser != null)
-                return new ApiResponse { Message = Constants.AlreadyExists };
+                throw new Exception(Constants.AlreadyExists);
 
             var user = new User { UserName = model.Email, Email = model.Email };
 
@@ -55,10 +55,10 @@ namespace Services
 
             if (result.Succeeded)
             {
-                var jwtToken = GenerateJwtToken(user);
-                return new ApiResponse { Message = "", Result = jwtToken, StatusCode = (int)HttpStatusCode.OK };
+                return Constants.SuccessfulRegister;
             }
-            return new ApiResponse { Message = Constants.ServerError, StatusCode = (int)HttpStatusCode.BadRequest };
+            else
+                return Constants.ExceptionMessage;
         }
 
 
@@ -74,7 +74,7 @@ namespace Services
                 {
                     new Claim("Id", user.Id),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(365),
