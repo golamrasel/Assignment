@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Context.models;
+using Context.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Services.models;
 
 namespace Context
 {
@@ -16,6 +17,7 @@ namespace Context
         {
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<Student> Students { get; set; }
 
     }
 }

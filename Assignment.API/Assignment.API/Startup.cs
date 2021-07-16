@@ -1,4 +1,5 @@
 using Context;
+using Context.models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services;
 using Services.API.Configuration;
-using Services.models;
+using Services.StudentServices;
 using System.Text;
 
 namespace Assignment.API
@@ -61,6 +62,7 @@ namespace Assignment.API
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddDefaultIdentity<User>(x =>
             {
                 x.Password.RequireDigit = false;
@@ -69,7 +71,7 @@ namespace Assignment.API
                 x.Password.RequireUppercase = false;
                 x.Password.RequireLowercase = false;
             }).AddEntityFrameworkStores<AssigmentContext>();
-
+            //services.AddControllers().jso
             // Allowng Cors
             services.AddCors(c =>
             {

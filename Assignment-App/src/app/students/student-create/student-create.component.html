@@ -1,0 +1,57 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <form #studentForm="ngForm">
+        <section class="mt-3">
+             <div class="col-12">
+               <div class="card">
+                 <div class="card-header">
+                   <h3> Student Add </h3>
+                 </div>
+                 <div class="card-content">
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="">Student Name</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="text" class="form-control"  [(ngModel)] = "model.studentName" #name="ngModel" name="StudentName" placeholder="Student Name">
+                         </div>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="roll">Roll</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="number" class="form-control" [(ngModel)] = "model.roll" #name="ngModel" name="Roll"  placeholder="Roll No">
+                         </div>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="class">Class</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="text" class="form-control" [(ngModel)] = "model.class" #name="ngModel" name="Class"  placeholder="Class Name">
+                         </div>
+                       </div>
+                   </div>
+                 </div>
+                 <div class="card-header">
+                   <div class="footer mr-6">
+                     <div class="row">
+                       <div class="col-md-1">
+                        <button (click)="save()"  type="submit" class="btn btn-outline-success">Submit</button>
+                       </div>
+                    <div class="col-md-2">
+                      <button (click)="backClicked()"  type="click" class="btn btn-outline-danger"> Cancel</button>
+                    </div>
+                  </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </section>
+           </form>   
+</main>

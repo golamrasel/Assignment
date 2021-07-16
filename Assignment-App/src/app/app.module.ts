@@ -7,13 +7,21 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebService } from './services/web.service';
 import { HttpClientModule } from '@angular/common/http';
+import { StudentCreateComponent } from './students/student-create/student-create.component';
+import { StudentListComponent } from './students/student-list/student-list.component';
+import { StudentService } from './services/student.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { StudentEditComponent } from './students/student-edit/student-edit.component';
+import { CommonModule } from '@angular/common';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -21,7 +29,10 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarComponent,
     TopbarComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    StudentCreateComponent,
+    StudentListComponent,
+    StudentEditComponent
   ],
   imports: [
     HttpClientModule,
@@ -29,9 +40,14 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    CommonModule,
+    ReactiveFormsModule,
+    Ng2SearchPipeModule,
+    NgxDatatableModule
   ],
-  providers: [AuthService, AuthGuard, WebService],
+  providers: [AuthService, AuthGuard, WebService,StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
