@@ -22,6 +22,7 @@ import { StudentEditComponent } from './students/student-edit/student-edit.compo
 import { CommonModule } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     CommonModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgxSpinnerModule
   ],
   providers: [AuthService, AuthGuard, WebService,StudentService],
   bootstrap: [AppComponent]

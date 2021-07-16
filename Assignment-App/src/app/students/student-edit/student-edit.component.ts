@@ -6,6 +6,7 @@ import { Student } from 'src/app/model/student';
 import { UrlDataService } from 'src/app/services/url-service';
 import { WebApiService } from 'src/app/services/web-api.service';
 import { Location } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-student-edit',
@@ -21,7 +22,8 @@ export class StudentEditComponent implements OnInit {
     public service: WebApiService,
     public toastr: ToastrService,
     public route: ActivatedRoute,
-    private _location: Location
+    private _location: Location,
+    private SpinnerService: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -49,12 +51,14 @@ export class StudentEditComponent implements OnInit {
   }
 
   UpdateStudent() {
+    this.SpinnerService.show(); 
     this.model = Object.assign({}, this.studentForm.value);
     this.service.updateStudent(UrlDataService.updateStudent,this.model).subscribe(
     () => {
       this.toastr.success("Update Successfully!!");
       this.studentForm.reset();
       this._location.back();
+      this.SpinnerService.hide(); 
     }, error => {
        console.log(error);
     });

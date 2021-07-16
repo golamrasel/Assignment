@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { PageRequestModel } from 'src/app/model/pageRequest';
 import { PageResponseModel } from 'src/app/model/pageResponse';
@@ -30,7 +31,11 @@ export class StudentListComponent implements OnInit {
     orderDir: 'asc'
   };
 
-  constructor(public service: WebApiService, private toastr: ToastrService) { 
+  constructor(
+    public service: WebApiService,
+    private toastr: ToastrService,
+    private SpinnerService: NgxSpinnerService
+      ) { 
      this.paginationModel = new PageRequestModel();
      this.paginationModel.pageNo = 1;
      this.paginationModel.pageSize = 2;
@@ -49,11 +54,13 @@ export class StudentListComponent implements OnInit {
     this.getStudentList();
   }
   getStudentList(){
+    this.SpinnerService.show(); 
     this.service.getList(UrlDataService.listStudent, this.paginationModel).subscribe( response =>{
       var responses = response.result as PageResponseModel<Student>;
       this.rows = responses.rows;
       this.page.count =  responses.count;
       console.log(response);
+      this.SpinnerService.hide(); 
     }, errore => {
       console.log(errore);
     });

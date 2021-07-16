@@ -4,6 +4,7 @@ import { Student } from 'src/app/model/student';
 import { UrlDataService } from 'src/app/services/url-service';
 import { WebApiService } from 'src/app/services/web-api.service';
 import { Location } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-student-create',
@@ -16,7 +17,9 @@ export class StudentCreateComponent implements OnInit {
   constructor(
     public service: WebApiService,
     private toastr: ToastrService,
-    private _location: Location
+    private _location: Location,
+    private SpinnerService: NgxSpinnerService
+
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +31,7 @@ export class StudentCreateComponent implements OnInit {
   }
 
   save(){
+    this.SpinnerService.show(); 
     this.service.saveStudent(UrlDataService.saveStudent, this.model).subscribe((response: any)=>{
       this.toastr.success(response.result.result)
       this.model = {
@@ -36,6 +40,7 @@ export class StudentCreateComponent implements OnInit {
         roll: 0,
         class: ''
       }
+      this.SpinnerService.hide(); 
     })
   }
 }
