@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services;
 using Services.API.Configuration;
+using Services.BranchServices;
 using Services.StudentServices;
 using System.Text;
 
@@ -63,6 +64,7 @@ namespace Assignment.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IBranchService, BranchService>();
             services.AddDefaultIdentity<User>(x =>
             {
                 x.Password.RequireDigit = false;

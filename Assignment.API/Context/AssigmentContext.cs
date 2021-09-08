@@ -18,6 +18,7 @@ namespace Context
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Branch> Branches { get; set; }
 
     }
 }
