@@ -73,7 +73,7 @@ namespace Services.BranchServices
         {
             var entity = await _context.Branches.FindAsync(Id);
             if (entity == null)
-                throw new SystemException("This student is not found!!");
+                throw new SystemException("This branch is not found!!");
             _context.Branches.Remove(entity);
             await _context.SaveChangesAsync();
             return entity;

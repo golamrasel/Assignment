@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using Services;
 using Services.API.Configuration;
 using Services.BranchServices;
+using Services.LocationServices;
 using Services.StudentServices;
 using System.Text;
 
@@ -65,6 +66,7 @@ namespace Assignment.API
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IBranchService, BranchService>();
+            services.AddTransient<ILocationService, LocationService>();
             services.AddDefaultIdentity<User>(x =>
             {
                 x.Password.RequireDigit = false;
