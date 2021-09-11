@@ -23,6 +23,9 @@ import { CommonModule } from '@angular/common';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BranchCreateComponent } from './branches/branch-create/branch-create.component';
+import { BranchListComponent } from './branches/branch-list/branch-list.component';
+import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     LoginComponent,
     StudentCreateComponent,
     StudentListComponent,
-    StudentEditComponent
+    StudentEditComponent,
+    BranchCreateComponent,
+    BranchListComponent,
+    BranchEditComponent,
   ],
   imports: [
     HttpClientModule,

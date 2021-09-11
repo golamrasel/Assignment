@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Student } from 'src/app/model/student';
+import { Branch } from 'src/app/model/branch';
 import { UrlDataService } from 'src/app/services/url-service';
 import { WebApiService } from 'src/app/services/web-api.service';
 import { Location } from '@angular/common';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-student-edit',
-  templateUrl: './student-edit.component.html',
-  styleUrls: ['./student-edit.component.css']
+  selector: 'app-branch-edit',
+  templateUrl: './branch-edit.component.html',
+  styleUrls: ['./branch-edit.component.css']
 })
-export class StudentEditComponent implements OnInit {
-  studentForm!: FormGroup;
-  model!: Student;
+export class BranchEditComponent implements OnInit {
+  branchForm!: FormGroup;
+  model!: Branch;
 
   constructor(
     private fb: FormBuilder,
@@ -27,20 +27,20 @@ export class StudentEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.studentForm = this.fb.group({
-      studentId: new FormControl('',Validators.required),
-      studentName: new FormControl('',Validators.required),
-      roll: new FormControl('',Validators.required),
-      class: new FormControl('',Validators.required)
+    this.branchForm = this.fb.group({
+      id: new FormControl('',Validators.required),
+      branchName: new FormControl('',Validators.required),
+      password: new FormControl('',Validators.required),
+      mac: new FormControl('',Validators.required)
     })
     if(this.route.snapshot.params.id>0)
-      this.getstudentById(this.route.snapshot.params.id) ;
+      this.getBranchById(this.route.snapshot.params.id) ;
   }
 
-  getstudentById(id:number) {
-    this.service.get(UrlDataService.detailsStudent,id).subscribe(response => {
+  getBranchById(id:number) {
+    this.service.get(UrlDataService.detailsBranch,id).subscribe(response => {
       console.log(response);
-     this.studentForm.setValue(response.result)
+     this.branchForm.setValue(response.result)
     }, error => {
        console.log(error);
     });
@@ -50,13 +50,13 @@ export class StudentEditComponent implements OnInit {
     this._location.back();
   }
 
-  UpdateStudent() {
+  UpdateBranch() {
     this.SpinnerService.show(); 
-    this.model = Object.assign({}, this.studentForm.value);
-    this.service.update(UrlDataService.updateStudent,this.model).subscribe(
+    this.model = Object.assign({}, this.branchForm.value);
+    this.service.update(UrlDataService.updateBranch,this.model).subscribe(
     () => {
       this.toastr.success("Update Successfully!!");
-      this.studentForm.reset();
+      this.branchForm.reset();
       this._location.back();
       this.SpinnerService.hide(); 
     }, error => {

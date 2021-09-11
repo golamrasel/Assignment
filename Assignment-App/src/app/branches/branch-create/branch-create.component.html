@@ -1,0 +1,60 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <form #branchForm="ngForm">
+        <section class="mt-3">
+             <div class="col-12">
+               <div class="card">
+                 <div class="card-header">
+                   <h3> Branch Add </h3>
+                 </div>
+                 <div class="card-content">
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="">Branch Name</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="text" class="form-control"  [(ngModel)] = "model.branchName" #name="ngModel" name="branchName" placeholder="Branch Name">
+                         </div>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="roll">Password</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="password" class="form-control" [(ngModel)] = "model.password" #name="ngModel" name="password"  placeholder="Password">
+                         </div>
+                       </div>
+                   </div>
+                   <div class="card-body">
+                       <div class="form-group row">
+                         <div class="col-3">
+                           <label for="class">Mac</label>
+                         </div>
+                         <div class="col-9">
+                            <input type="text" class="form-control" [(ngModel)] = "model.mac" #name="ngModel" name="mac"  placeholder="Mac Id">
+                         </div>
+                       </div>
+                   </div>
+                 </div>
+                 <div class="card-header">
+                   <div class="footer mr-6">
+                     <div class="row">
+                       <div class="col-md-1">
+                        <button (click)="save()"  type="submit" class="btn btn-outline-success">Submit</button>
+                       </div>
+                    <div class="col-md-2">
+                      <button (click)="backClicked()"  type="click" class="btn btn-outline-danger"> Cancel</button>
+                    </div>
+                  </div>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </section>
+           </form>   
+</main>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+  <p style="color: white">Please Wait. </p>  
+</ngx-spinner> 

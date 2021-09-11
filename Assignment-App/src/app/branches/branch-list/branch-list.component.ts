@@ -1,28 +1,26 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Branch } from 'src/app/model/branch';
 import { PageRequestModel } from 'src/app/model/pageRequest';
 import { PageResponseModel } from 'src/app/model/pageResponse';
-import { Student } from 'src/app/model/student';
-import { StudentService } from 'src/app/services/student.service';
 import { UrlDataService } from 'src/app/services/url-service';
 import { WebApiService } from 'src/app/services/web-api.service';
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css','../../assets/libs/datatables.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: 'app-branch-list',
+  templateUrl: './branch-list.component.html',
+  styleUrls: ['./branch-list.component.css']
 })
-export class StudentListComponent implements OnInit {
-  rowData: Student[] = [];
+export class BranchListComponent implements OnInit {
+  rowData: Branch[] = [];
   searchText: string = "";
   totalLength: any;
   dataPerPage: number = 0;
   paginationModel: PageRequestModel;
   columnMode = ColumnMode;
-  public rows = new Array<Student>();
+  public rows = new Array<Branch>();
   page = {
     limit: 2,
     count: 0,
@@ -42,39 +40,38 @@ export class StudentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStudentList();
+    this.getBranchList();
   }
   searchKeyword(){
     this.paginationModel.keyword =  this.searchText;
-    this.getStudentList();
+    this.getBranchList();
   }
   serverSideSetPage(event?:any) {
-    debugger;
     this.paginationModel.pageNo = event.offset + 1;
-    this.getStudentList();
+    this.getBranchList();
   }
-  getStudentList(){
+  getBranchList(){
     this.SpinnerService.show(); 
-    this.service.getList(UrlDataService.listStudent, this.paginationModel).subscribe( response =>{
-      var responses = response.result as PageResponseModel<Student>;
+    this.service.getList(UrlDataService.listBranch, this.paginationModel).subscribe( response =>{
+      var responses = response.result as PageResponseModel<Branch>;
       this.rows = responses.rows;
       this.page.count =  responses.count;
-      console.log(response);
       this.SpinnerService.hide(); 
     }, errore => {
       console.log(errore);
     });
   }
 
-  StudentDelete(model: Student){
+  BranchDelete(model: Branch){
+    console.log(model);
     if(confirm("Are you sure delete this data?")){
-    this.service.delete(UrlDataService.deleteStudent, model.studentId).subscribe( response => {
+    this.service.delete(UrlDataService.deleteBranch, model.id).subscribe( response => {
       var index = this.rowData.indexOf(model);
       this.rowData.splice(index);
       this.toastr.success("Delete Successfully!!");
-      this.getStudentList();
+      this.getBranchList();
     })
   }
-  }
-}
 
+}
+}

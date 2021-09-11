@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Student } from 'src/app/model/student';
-import { UrlDataService } from 'src/app/services/url-service';
+import { Branch } from 'src/app/model/branch';
 import { WebApiService } from 'src/app/services/web-api.service';
 import { Location } from '@angular/common';
-import { NgxSpinnerService } from 'ngx-spinner';
+import { UrlDataService } from 'src/app/services/url-service';
 
 @Component({
-  selector: 'app-student-create',
-  templateUrl: './student-create.component.html',
-  styleUrls: ['./student-create.component.css']
+  selector: 'app-branch-create',
+  templateUrl: './branch-create.component.html',
+  styleUrls: ['./branch-create.component.css']
 })
-export class StudentCreateComponent implements OnInit {
+export class BranchCreateComponent implements OnInit {
 
-  model!: Student;
+  model!: Branch;
   constructor(
     public service: WebApiService,
     private toastr: ToastrService,
@@ -23,7 +23,7 @@ export class StudentCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.model = new Student();
+    this.model = new Branch();
   }
    
   backClicked(){
@@ -32,17 +32,16 @@ export class StudentCreateComponent implements OnInit {
 
   save(){
     this.SpinnerService.show(); 
-    this.service.save(UrlDataService.saveStudent, this.model).subscribe((response: any)=>{
+    this.service.save(UrlDataService.saveBranch, this.model).subscribe((response: any)=>{
       this.toastr.success(response.result.result)
       this.model = {
-        studentId: 0,
-        studentName: '',
-        roll: 0,
-        class: ''
+        id: 0,
+        branchName: '',
+        password: '',
+        mac: ''
       }
       this.SpinnerService.hide(); 
     })
   }
+
 }
-
-
